@@ -454,3 +454,7 @@ summary {
 .header-container {
   padding-left: 100px;
 }
+
+.header-container span {
+  cursor: default;
+}
