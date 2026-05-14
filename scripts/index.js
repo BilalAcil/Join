@@ -6,6 +6,14 @@ function onLoad() {
     loadFromFirebase();
 }
 
+window.addEventListener('pageshow', event => {
+    const navEntries = window.performance?.getEntriesByType?.('navigation') || [];
+    const navType = navEntries[0]?.type;
+
+    if (event.persisted || navType === 'back_forward') {
+        window.location.reload();
+    }
+});
 
 /**
  * Animates the logo on the page, transitioning through different styles and positions.
@@ -20,15 +28,15 @@ function moveLogo() {
         }
     };
 
-    const centerStyle = {display: 'none', width: '0px', height: '0px', top: '50%', left: '50%', transform: 'translate(-50%, -50%)'};
-    const expandStyle = {display: 'unset',width: '200px',height: '200px',top: '50%',left: '50%',transform: 'translate(-50%, -50%)'};
+    const centerStyle = { display: 'none', width: '0px', height: '0px', top: '50%', left: '50%', transform: 'translate(-50%, -50%)' };
+    const expandStyle = { display: 'unset', width: '200px', height: '200px', top: '50%', left: '50%', transform: 'translate(-50%, -50%)' };
     const smallLogoStyle = window.innerHeight > 900 ? { width: '80px', height: '96px', left: '90px', top: '98px' } : { width: '80px', height: '80px', left: '70px', top: '70px' };
 
-    setTimeout(() => {if (window.innerWidth < 800) logoImg.src = '../images/joinlogowhite.svg';setStyles(logoImg, centerStyle);}, 0);
-    setTimeout(() => {setStyles(logoImg, expandStyle);}, 500);
-    setTimeout(() => {setStyles(logoImg, smallLogoStyle);}, 1500);
-    setTimeout(() => {if (window.innerWidth < 800) logoImg.src = '../images/joinlogodark.svg';mainDiv.style.opacity = '1';}, 2000);
-    setTimeout(() => {logoImg.classList.remove('animation');['width', 'height', 'left', 'top', 'transform'].forEach(prop => {logoImg.style.removeProperty(prop);});}, 3000);
+    setTimeout(() => { if (window.innerWidth < 800) logoImg.src = '../images/joinlogowhite.svg'; setStyles(logoImg, centerStyle); }, 0);
+    setTimeout(() => { setStyles(logoImg, expandStyle); }, 500);
+    setTimeout(() => { setStyles(logoImg, smallLogoStyle); }, 1500);
+    setTimeout(() => { if (window.innerWidth < 800) logoImg.src = '../images/joinlogodark.svg'; mainDiv.style.opacity = '1'; }, 2000);
+    setTimeout(() => { logoImg.classList.remove('animation');['width', 'height', 'left', 'top', 'transform'].forEach(prop => { logoImg.style.removeProperty(prop); }); }, 3000);
 }
 
 
